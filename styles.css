@@ -170,7 +170,7 @@ h3 {
 
 /* SERVICES */
 #services .section-intro {
-  max-width: 70ch;
+  max-width: 120ch;
   text-align: left;
   border-left: 4px solid var(--gold);
   padding-left: 1rem;
@@ -179,19 +179,20 @@ h3 {
 
 /* WHO WE SERVE */
 #audience .section-intro {
-  max-width: 58ch;
-  text-align: center;
-  margin: 0 auto;
-  font-size: 1.08rem;
+  max-width: 120ch;
+  text-align: left;
+  border-left: 4px solid var(--gold);
+  padding-left: 1rem;
+  margin-top: 0.5rem;
 }
 
 /* LEADERSHIP */
 #team .section-intro {
-  max-width: 50ch;
-  text-align: center;
-  margin: 0 auto;
-  font-size: 1rem;
-  color: var(--ink);
+  max-width: 120ch;
+  text-align: left;
+  border-left: 4px solid var(--gold);
+  padding-left: 1rem;
+  margin-top: 0.5rem;
 }
 .on-dark,
 .on-dark a,
