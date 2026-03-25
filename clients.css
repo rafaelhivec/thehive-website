@@ -18,6 +18,10 @@
   text-align: center;
 }
 
+.hero-emphasis {
+  color: var(--gold-dark);
+}
+
 /* ── Hex Grid ─────────────────────────────────────────────────────────────── */
 
 @keyframes hexPop {
