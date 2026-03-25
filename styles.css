@@ -137,6 +137,9 @@ code {
 .hero-copy {
   padding: 2.5rem 0;
 }
+.hero-emphasis {
+  color: var(--gold-dark);
+}
 .eyebrow,
 .section-label,
 .on-dark.section-label {
