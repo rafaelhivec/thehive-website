@@ -499,7 +499,11 @@ h3 {
 
 @media (max-width: 980px) {
   .hero {
-    background: linear-gradient(180deg, var(--surface-alt) 0%, var(--surface-alt) 62%, var(--gold) 62%, var(--gold) 100%);
+    background: var(--surface-alt);
+  }
+  .hero-panel {
+    background: var(--gold);
+    border-color: rgba(255, 255, 255, 0.3);
   }
   .hero-grid,
   .split-grid,
