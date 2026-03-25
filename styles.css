@@ -285,6 +285,10 @@ h3 {
   padding: 1.5rem;
   box-shadow: var(--shadow);
 }
+.team-card {
+  display: flex;
+  flex-direction: column;
+}
 .info-card ul,
 .feature-list {
   padding-left: 1.1rem;
@@ -383,7 +387,8 @@ h3 {
 }
 .form-note { margin: 0; font-size: 0.92rem; }
 .team-actions {
-  margin-top: 1rem;
+  margin-top: auto;
+  padding-top: 1rem;
 }
 .linkedin-link {
   display: inline-flex;
