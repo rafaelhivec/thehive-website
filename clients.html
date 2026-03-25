@@ -7,239 +7,10 @@
   <meta name="description" content="The Hive partners with California public agencies — transportation, water, and wastewater districts — on compensation, classification, recruiting, and organizational strategy.">
   <meta name="theme-color" content="#FBAF40">
   <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/clients.css">
   <link rel="icon" type="image/png" href="/assets/thehive-icon.png">
   <link rel="canonical" href="https://thehive.consulting/clients">
 
-  <style>
-    /* ── Honeycomb grid ─────────────────────────────────────────── */
-    @keyframes hexPop {
-      0%   { opacity: 0; transform: scale(0.72); }
-      65%  { transform: scale(1.05); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
-    .hex-grid-outer {
-      display: flex;
-      justify-content: center;
-      overflow: visible;
-    }
-
-    .hex-grid-container {
-      position: relative;          /* positioning context for cells */
-      width: 665px;
-      height: 318px;
-      overflow: visible;
-    }
-
-    /* Each cell: absolutely placed, links reset */
-    .hex-cell {
-      position: absolute;
-      display: block;
-      width: 180px;
-      height: 158px;
-      text-decoration: none;
-      color: inherit;
-      z-index: 1;
-      cursor: pointer;
-      animation: hexPop 0.6s cubic-bezier(.34, 1.46, .64, 1) both;
-    }
-    .hex-cell:nth-child(1) { animation-delay: 0.04s; }
-    .hex-cell:nth-child(2) { animation-delay: 0.14s; }
-    .hex-cell:nth-child(3) { animation-delay: 0.24s; }
-    .hex-cell:nth-child(4) { animation-delay: 0.34s; }
-    .hex-cell:nth-child(5) { animation-delay: 0.44s; }
-    .hex-cell:nth-child(6) { animation-delay: 0.54s; }
-
-    /* Hovered cell floats above all siblings */
-    .hex-cell:hover { z-index: 20; }
-
-    /* SVG hex — shape-aware drop-shadow */
-    .hex-cell svg {
-      position: absolute;
-      inset: 0;
-      overflow: visible;
-      transition: filter 0.3s ease;
-      filter: drop-shadow(0 5px 14px rgba(33,30,30,0.10));
-    }
-    .hex-cell:hover svg {
-      filter: drop-shadow(0 14px 28px rgba(242,113,21,0.30));
-    }
-
-    .hex-poly {
-      fill: #ffffff;
-      stroke: var(--border);
-      stroke-width: 1.5;
-      transition: fill 0.28s ease, stroke 0.28s ease;
-    }
-    .hex-cell:hover .hex-poly {
-      fill: var(--gold-soft);
-      stroke: var(--gold-dark);
-    }
-
-    /* Logo area centered on hex face */
-    .hex-content {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20% 14%;
-      transition: transform 0.28s cubic-bezier(.34, 1.46, .64, 1);
-    }
-    .hex-cell:hover .hex-content { transform: translateY(-4px); }
-
-    .hex-logo {
-      width: 100%;
-      max-height: 60px;
-      object-fit: contain;
-      display: block;
-    }
-
-    /* Fallback initials when logo fails */
-    .hex-fallback {
-      display: none;
-      font-weight: 800;
-      font-size: 1.1rem;
-      color: var(--ink-soft);
-      letter-spacing: 0.05em;
-      transition: color 0.25s;
-    }
-    .hex-content.logo-failed .hex-logo    { display: none; }
-    .hex-content.logo-failed .hex-fallback { display: block; }
-    .hex-cell:hover .hex-fallback { color: var(--gold-dark); }
-
-    /* Tooltip: full name, appears below hex on hover */
-    .hex-tooltip {
-      position: absolute;
-      left: 50%;
-      bottom: -40px;
-      transform: translateX(-50%) translateY(5px);
-      white-space: nowrap;
-      background: var(--ink);
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 600;
-      padding: 5px 12px;
-      border-radius: 999px;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.22s ease, transform 0.22s ease;
-      letter-spacing: 0.02em;
-      z-index: 30;
-    }
-    .hex-cell:hover .hex-tooltip {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    /* Legend pills */
-    .client-legend {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-top: 3rem;
-    }
-    .client-pill {
-      font-size: 0.8rem;
-      color: var(--ink-soft);
-      background: var(--surface-alt);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 0.3rem 0.85rem;
-    }
-
-    /* ── Engagement categories ──────────────────────────────────── */
-    .engagement-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .engagement-category {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    .engagement-cat-header {
-      padding: 1rem 1.4rem;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .engagement-cat-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .engagement-cat-label {
-      font-weight: 800;
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .engagement-row {
-      padding: 0.9rem 1.4rem;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      transition: background 0.18s ease;
-    }
-    .engagement-row:last-child { border-bottom: none; }
-    .engagement-row:hover { background: var(--surface-alt); }
-
-    .engagement-bar {
-      width: 3px;
-      min-height: 2rem;
-      align-self: stretch;
-      border-radius: 99px;
-      opacity: 0.35;
-      flex-shrink: 0;
-    }
-
-    .engagement-client {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--ink-soft);
-      margin: 0 0 3px;
-    }
-
-    .engagement-title {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1rem;
-      line-height: 1.3;
-      color: var(--ink);
-      margin: 0;
-    }
-
-    /* ── Responsive ─────────────────────────────────────────────── */
-    @media (max-width: 980px) {
-      .hex-grid-container {
-        transform: scale(0.74);
-        transform-origin: top center;
-        margin-bottom: calc((318px * 0.74) - 318px);
-      }
-      .engagement-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 600px) {
-      .hex-grid-container {
-        transform: scale(0.52);
-        transform-origin: top center;
-        margin-bottom: calc((318px * 0.52) - 318px);
-      }
-    }
-  </style>
 </head>
 <body>
 
@@ -272,8 +43,8 @@
           </h1>
           <p class="lead">A focused practice built exclusively for public agencies — bringing the depth of a large firm without losing the personal attention only a specialized team can provide.</p>
           <div class="hero-actions">
-            <a class="btn btn-dark" href="/#contact">Get in Touch</a>
-            <a class="btn btn-outline" href="#engagements">See Our Work</a>
+            <a class="btn btn-dark" href="#engagements">See Our Work</a>
+            <a class="btn btn-outline" href="/#contact">Get in Touch</a>
           </div>
         </div>
 
@@ -309,7 +80,7 @@
       <div class="wrap">
         <p class="section-label">Selected Clients</p>
         <h2>Agencies that trust The Hive</h2>
-        <p class="section-intro" style="border-left:4px solid var(--gold);padding-left:1rem;margin-bottom:3rem;max-width:58ch;">
+        <p class="section-intro clients-intro">
           A focused portfolio of California public agency partnerships — transportation, water, and wastewater authorities that needed precise, expert HR support.
         </p>
 
@@ -319,7 +90,7 @@
             <!-- Row 0 ─────────────────────────────────────────────────────── -->
 
             <!-- Cell 0 — Encina Wastewater Authority -->
-            <a class="hex-cell" href="https://www.encinajpa.com" target="_blank" rel="noopener noreferrer"
+            <a class="hex-cell" href="https://www.encinajpa.com" target="_blank" rel="noopener noreferrer" aria-label="Visit Encina Wastewater Authority website" title="Encina Wastewater Authority"
                style="left:0px; top:0px;">
               <svg viewBox="0 0 114 100" width="180" height="158" style="position:absolute;inset:0;overflow:visible;">
                 <polygon class="hex-poly" points="29,2 85,2 113,50 85,98 29,98 1,50"/>
@@ -333,7 +104,7 @@
             </a>
 
             <!-- Cell 1 — Helix Water District -->
-            <a class="hex-cell" href="https://www.helixwater.org" target="_blank" rel="noopener noreferrer"
+            <a class="hex-cell" href="https://www.helixwater.org" target="_blank" rel="noopener noreferrer" aria-label="Visit Helix Water District website" title="Helix Water District"
                style="left:194px; top:0px;">
               <svg viewBox="0 0 114 100" width="180" height="158" style="position:absolute;inset:0;overflow:visible;">
                 <polygon class="hex-poly" points="29,2 85,2 113,50 85,98 29,98 1,50"/>
@@ -347,7 +118,7 @@
             </a>
 
             <!-- Cell 2 — LAVTA -->
-            <a class="hex-cell" href="https://www.lavta.org" target="_blank" rel="noopener noreferrer"
+            <a class="hex-cell" href="https://www.lavta.org" target="_blank" rel="noopener noreferrer" aria-label="Visit Livermore Amador Valley Transit Authority website" title="Livermore Amador Valley Transit Authority"
                style="left:388px; top:0px;">
               <svg viewBox="0 0 114 100" width="180" height="158" style="position:absolute;inset:0;overflow:visible;">
                 <polygon class="hex-poly" points="29,2 85,2 113,50 85,98 29,98 1,50"/>
@@ -363,7 +134,7 @@
             <!-- Row 1 (offset) ──────────────────────────────────────────── -->
 
             <!-- Cell 3 — Marin Transit -->
-            <a class="hex-cell" href="https://www.marintransit.org" target="_blank" rel="noopener noreferrer"
+            <a class="hex-cell" href="https://www.marintransit.org" target="_blank" rel="noopener noreferrer" aria-label="Visit Marin Transit website" title="Marin Transit"
                style="left:97px; top:120px;">
               <svg viewBox="0 0 114 100" width="180" height="158" style="position:absolute;inset:0;overflow:visible;">
                 <polygon class="hex-poly" points="29,2 85,2 113,50 85,98 29,98 1,50"/>
@@ -377,7 +148,7 @@
             </a>
 
             <!-- Cell 4 — Otay Water District -->
-            <a class="hex-cell" href="https://www.otaywater.gov" target="_blank" rel="noopener noreferrer"
+            <a class="hex-cell" href="https://www.otaywater.gov" target="_blank" rel="noopener noreferrer" aria-label="Visit Otay Water District website" title="Otay Water District"
                style="left:291px; top:120px;">
               <svg viewBox="0 0 114 100" width="180" height="158" style="position:absolute;inset:0;overflow:visible;">
                 <polygon class="hex-poly" points="29,2 85,2 113,50 85,98 29,98 1,50"/>
@@ -391,7 +162,7 @@
             </a>
 
             <!-- Cell 5 — Solano County Transit -->
-            <a class="hex-cell" href="https://www.soltransride.com" target="_blank" rel="noopener noreferrer"
+            <a class="hex-cell" href="https://www.soltransride.com" target="_blank" rel="noopener noreferrer" aria-label="Visit Solano County Transit website" title="Solano County Transit"
                style="left:485px; top:120px;">
               <svg viewBox="0 0 114 100" width="180" height="158" style="position:absolute;inset:0;overflow:visible;">
                 <polygon class="hex-poly" points="29,2 85,2 113,50 85,98 29,98 1,50"/>
@@ -425,33 +196,25 @@
       <div class="wrap">
         <p class="section-label">Recent Engagements</p>
         <h2>Work that moves organizations forward</h2>
-        <p class="section-intro" style="border-left:4px solid var(--gold);padding-left:1rem;margin-bottom:3rem;max-width:58ch;">
+        <p class="section-intro clients-intro">
           Projects across classification, compensation, culture, and leadership — each built around the specific needs of the agency we served.
         </p>
 
         <div class="engagement-grid">
 
-          <!-- Classification & Compensation -->
+          <!-- Workforce Support -->
           <div class="engagement-category">
-            <div class="engagement-cat-header" style="background:#fef3e0;">
-              <span class="engagement-cat-dot" style="background:#f27115;"></span>
-              <span class="engagement-cat-label" style="color:#f27115;">Classification &amp; Compensation</span>
+            <div class="engagement-cat-header" style="background:#e8f0fe;">
+              <span class="engagement-cat-dot" style="background:#1565c0;"></span>
+              <span class="engagement-cat-label" style="color:#1565c0;">Workforce Support</span>
             </div>
             <div class="engagement-row">
-              <div class="engagement-bar" style="background:#f27115;"></div>
-              <div><p class="engagement-client">Marin Transit</p><p class="engagement-title">Classification Review</p></div>
+              <div class="engagement-bar" style="background:#1565c0;"></div>
+              <div><p class="engagement-client">Solano County Transit</p><p class="engagement-title">Performance Evaluation Support</p></div>
             </div>
             <div class="engagement-row">
-              <div class="engagement-bar" style="background:#f27115;"></div>
-              <div><p class="engagement-client">LAVTA</p><p class="engagement-title">Total Compensation Study</p></div>
-            </div>
-            <div class="engagement-row">
-              <div class="engagement-bar" style="background:#f27115;"></div>
-              <div><p class="engagement-client">LAVTA</p><p class="engagement-title">Executive Compensation Study</p></div>
-            </div>
-            <div class="engagement-row">
-              <div class="engagement-bar" style="background:#f27115;"></div>
-              <div><p class="engagement-client">Solano County Transit</p><p class="engagement-title">Classification &amp; Total Compensation Study</p></div>
+              <div class="engagement-bar" style="background:#1565c0;"></div>
+              <div><p class="engagement-client">Solano County Transit</p><p class="engagement-title">Recruitment Support</p></div>
             </div>
           </div>
 
@@ -487,19 +250,27 @@
             </div>
           </div>
 
-          <!-- Workforce Support -->
-          <div class="engagement-category">
-            <div class="engagement-cat-header" style="background:#e8f0fe;">
-              <span class="engagement-cat-dot" style="background:#1565c0;"></span>
-              <span class="engagement-cat-label" style="color:#1565c0;">Workforce Support</span>
+          <!-- Classification & Compensation -->
+          <div class="engagement-category engagement-category-bottom">
+            <div class="engagement-cat-header" style="background:#fef3e0;">
+              <span class="engagement-cat-dot" style="background:#f27115;"></span>
+              <span class="engagement-cat-label" style="color:#f27115;">Classification &amp; Compensation</span>
             </div>
             <div class="engagement-row">
-              <div class="engagement-bar" style="background:#1565c0;"></div>
-              <div><p class="engagement-client">Solano County Transit</p><p class="engagement-title">Performance Evaluation Support</p></div>
+              <div class="engagement-bar" style="background:#f27115;"></div>
+              <div><p class="engagement-client">Marin Transit</p><p class="engagement-title">Classification Review</p></div>
             </div>
             <div class="engagement-row">
-              <div class="engagement-bar" style="background:#1565c0;"></div>
-              <div><p class="engagement-client">Solano County Transit</p><p class="engagement-title">Recruitment Support</p></div>
+              <div class="engagement-bar" style="background:#f27115;"></div>
+              <div><p class="engagement-client">LAVTA</p><p class="engagement-title">Total Compensation Study</p></div>
+            </div>
+            <div class="engagement-row">
+              <div class="engagement-bar" style="background:#f27115;"></div>
+              <div><p class="engagement-client">LAVTA</p><p class="engagement-title">Executive Compensation Study</p></div>
+            </div>
+            <div class="engagement-row">
+              <div class="engagement-bar" style="background:#f27115;"></div>
+              <div><p class="engagement-client">Solano County Transit</p><p class="engagement-title">Classification &amp; Total Compensation Study</p></div>
             </div>
           </div>
 
@@ -514,8 +285,8 @@
         <h2 class="on-dark">Ready to strengthen your organization?</h2>
         <p class="section-intro on-dark">Whether you're navigating a classification study, building a recruitment strategy, or developing your leadership team — we're here to help.</p>
         <div class="hero-actions center">
-          <a class="btn btn-gold" href="tel:+16195059305">Call Us: (619) 505-9305</a>
-          <a class="btn btn-outline-light" href="/#contact">Send a Message</a>
+          <a class="btn btn-gold" href="/#contact">Get in Touch</a>
+          <a class="btn btn-outline-light" href="/#services">Explore Services</a>
         </div>
       </div>
     </section>

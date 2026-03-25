@@ -1,7 +1,26 @@
 /* clients.css — page-specific styles for /clients
    Inherits all brand tokens and base styles from styles.css */
 
-/* ── Hex Grid ────────────────────────────────────────────────────────────── */
+/* ── Shared page tweaks ───────────────────────────────────────────────────── */
+
+.proof-bar strong {
+  color: var(--gold);
+}
+
+.clients-intro {
+  border-left: 4px solid var(--gold);
+  padding-left: 1rem;
+  margin: 0 0 3rem;
+  max-width: 58ch;
+}
+
+.cta-band .section-intro {
+  max-width: 50ch;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+
+/* ── Hex Grid ─────────────────────────────────────────────────────────────── */
 
 @keyframes hexPop {
   0%   { opacity: 0; transform: scale(0.72); }
@@ -19,19 +38,22 @@
   position: relative;
   width: 665px;
   height: 318px;
-  overflow: visible; /* critical: lets tooltips appear above everything */
+  overflow: visible;
+  isolation: isolate;
 }
 
 .hex-cell {
   position: absolute;
+  display: block;
   width: 180px;
   height: 158px;
+  text-decoration: none;
+  color: inherit;
   z-index: 1;
-  cursor: default;
+  cursor: pointer;
   animation: hexPop 0.6s cubic-bezier(.34, 1.46, .64, 1) both;
 }
 
-/* Staggered entrance */
 .hex-cell:nth-child(1) { animation-delay: 0.04s; }
 .hex-cell:nth-child(2) { animation-delay: 0.14s; }
 .hex-cell:nth-child(3) { animation-delay: 0.24s; }
@@ -39,10 +61,12 @@
 .hex-cell:nth-child(5) { animation-delay: 0.44s; }
 .hex-cell:nth-child(6) { animation-delay: 0.54s; }
 
-/* Bring hovered cell fully above all siblings */
-.hex-cell:hover { z-index: 20; }
+.hex-cell:hover,
+.hex-cell:focus-visible {
+  z-index: 50;
+  outline: none;
+}
 
-/* SVG hex shape */
 .hex-cell svg {
   position: absolute;
   inset: 0;
@@ -50,46 +74,51 @@
   transition: filter 0.3s ease;
   filter: drop-shadow(0 5px 14px rgba(33, 30, 30, 0.10));
 }
-.hex-cell:hover svg {
+
+.hex-cell:hover svg,
+.hex-cell:focus-visible svg {
   filter: drop-shadow(0 14px 28px rgba(242, 113, 21, 0.30));
 }
 
 .hex-poly {
-  fill: #ffffff;
+  fill: var(--surface);
   stroke: var(--border);
   stroke-width: 1.5;
   transition: fill 0.28s ease, stroke 0.28s ease;
 }
-.hex-cell:hover .hex-poly {
+
+.hex-cell:hover .hex-poly,
+.hex-cell:focus-visible .hex-poly {
   fill: var(--gold-soft);
   stroke: var(--gold-dark);
 }
 
-/* Content area */
 .hex-content {
   position: absolute;
-  inset: 0;
+  left: 50%;
+  top: 50%;
+  width: 68%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 22% 14%;
-  gap: 7px;
+  gap: 6px;
+  transform: translate(-50%, -50%);
   transition: transform 0.28s cubic-bezier(.34, 1.46, .64, 1);
 }
-.hex-cell:hover .hex-content {
-  transform: translateY(-4px);
+
+.hex-cell:hover .hex-content,
+.hex-cell:focus-visible .hex-content {
+  transform: translate(-50%, -52%);
 }
 
-/* Logo image */
 .hex-logo {
   width: 100%;
-  max-height: 56px;
+  max-width: 100%;
+  max-height: 62px;
   object-fit: contain;
   display: block;
 }
 
-/* Fallback initials (shown when logo fails) */
 .hex-fallback {
   display: none;
   font-weight: 800;
@@ -99,74 +128,69 @@
   font-family: Inter, ui-sans-serif, system-ui, sans-serif;
   transition: color 0.25s;
 }
-.hex-content.logo-failed .hex-logo    { display: none; }
-.hex-content.logo-failed .hex-fallback { display: block; }
 
-/* Short label */
-.hex-label {
-  font-size: 0.62rem;
-  font-weight: 700;
-  color: var(--ink-soft);
-  text-align: center;
-  line-height: 1.3;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-  transition: color 0.25s;
+.hex-content.logo-failed .hex-logo {
+  display: none;
 }
-.hex-cell:hover .hex-label    { color: var(--gold-dark); }
-.hex-cell:hover .hex-fallback { color: var(--gold-dark); }
 
-/* Tooltip — full agency name on hover */
+.hex-content.logo-failed .hex-fallback {
+  display: block;
+}
+
+.hex-cell:hover .hex-fallback,
+.hex-cell:focus-visible .hex-fallback {
+  color: var(--gold-dark);
+}
+
 .hex-tooltip {
   position: absolute;
   left: 50%;
-  bottom: -40px;
-  transform: translateX(-50%) translateY(5px);
+  bottom: -34px;
+  transform: translateX(-50%) translateY(4px);
   white-space: nowrap;
   background: var(--ink);
   color: #fff;
   font-size: 0.72rem;
   font-weight: 600;
-  padding: 5px 12px;
+  padding: 5px 10px;
   border-radius: 999px;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.22s ease, transform 0.22s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
   letter-spacing: 0.02em;
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-  z-index: 30; /* above everything including other hex cells */
+  z-index: 100;
 }
-.hex-cell:hover .hex-tooltip {
+
+.hex-cell:hover .hex-tooltip,
+.hex-cell:focus-visible .hex-tooltip {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
 
-/* Legend pills below honeycomb */
 .client-legend {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.5rem;
-  margin-top: 3rem;
+  margin-top: 2.5rem;
 }
+
 .client-pill {
   font-size: 0.8rem;
   color: var(--ink-soft);
   background: var(--surface-alt);
   border: 1px solid var(--border);
   border-radius: 999px;
-  padding: 0.3rem 0.85rem;
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  padding: 0.3rem 0.75rem;
 }
 
-/* ── Engagement Categories ────────────────────────────────────────────────── */
+/* ── Engagement categories ───────────────────────────────────────────────── */
 
 .engagement-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.25rem;
-  margin-top: 0;
+  align-items: start;
 }
 
 .engagement-category {
@@ -175,6 +199,10 @@
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
+}
+
+.engagement-category-bottom {
+  grid-column: 2;
 }
 
 .engagement-cat-header {
@@ -194,10 +222,9 @@
 
 .engagement-cat-label {
   font-weight: 800;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
 }
 
 .engagement-row {
@@ -206,28 +233,34 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  transition: background 0.18s ease;
+  transition: transform 0.22s ease, background 0.18s ease, box-shadow 0.22s ease;
 }
-.engagement-row:last-child { border-bottom: none; }
-.engagement-row:hover { background: var(--surface-alt); }
+
+.engagement-row:last-child {
+  border-bottom: none;
+}
+
+.engagement-row:hover {
+  background: rgba(245, 244, 240, 0.8);
+  transform: translateY(-1px);
+}
 
 .engagement-bar {
   width: 3px;
   min-height: 2rem;
   align-self: stretch;
   border-radius: 99px;
-  opacity: 0.3;
+  opacity: 0.35;
   flex-shrink: 0;
 }
 
 .engagement-client {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-soft);
-  margin-bottom: 3px;
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  margin: 0 0 2px;
 }
 
 .engagement-title {
@@ -244,18 +277,22 @@
   .hex-grid-container {
     transform: scale(0.74);
     transform-origin: top center;
-    /* Collapse the visual height after scale */
     margin-bottom: calc((318px * 0.74) - 318px);
   }
+
   .engagement-grid {
     grid-template-columns: 1fr;
+  }
+
+  .engagement-category-bottom {
+    grid-column: auto;
   }
 }
 
 @media (max-width: 600px) {
   .hex-grid-container {
-    transform: scale(0.54);
+    transform: scale(0.52);
     transform-origin: top center;
-    margin-bottom: calc((318px * 0.54) - 318px);
+    margin-bottom: calc((318px * 0.52) - 318px);
   }
 }
