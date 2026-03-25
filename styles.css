@@ -382,6 +382,10 @@ h3 {
   border-color: var(--gold-dark);
 }
 .form-note { margin: 0; font-size: 0.92rem; }
+.bot-field-wrapper {
+  display: none !important;
+  visibility: hidden;
+}
 .sr-only {
   position: absolute;
   width: 1px;
